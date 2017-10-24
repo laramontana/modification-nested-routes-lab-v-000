@@ -30,7 +30,7 @@ class SongsController < ApplicationController
         @song = Song.new(artist_id: params[:artist_id])
       else
         redirect_to artists_path
-      end    
+      end
     else
       @song = Song.new
     end
@@ -50,8 +50,8 @@ class SongsController < ApplicationController
     if params[:artist_id]
       if Artist.exists?(id: params[:artist_id])
         @artist = Artist.find_by(id: params[:artist_id])
-        if @artist.songs.include?(Song.find(params[:id]))
-          @song = Song.find(params[:id])
+        if @artist.songs.include?(Song.find_by(id: params[:id]))
+          @song = Song.find_by(id: params[:id])
         else
           redirect_to artist_songs_path(@artist)
         end
@@ -59,7 +59,7 @@ class SongsController < ApplicationController
         redirect_to artists_path
       end
     else
-      @song = Song.find(params[:id])
+      @song = Song.find_by(id: params[:id])
     end
   end
 
